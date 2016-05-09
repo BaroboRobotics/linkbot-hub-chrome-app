@@ -12,5 +12,8 @@
   "permissions": [
     "mdns",
     "system.network"
-  ]
+  ],
+  "externally_connectable": {
+    "matches": ["*://localhost/*"]
+  }
 }
