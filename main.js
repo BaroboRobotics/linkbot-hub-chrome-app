@@ -44,7 +44,8 @@ window.addEventListener('load', function() {
         console.log("Received message from external source.");
         if ( results.length > 0 ) {
             console.log("Sending response: " + results[0].serviceHostPort);
-            sendResponse({serviceHostPort: results[0].serviceHostPort});
+            var port = results[0].serviceHostPort.split(':')[1];
+            sendResponse({serviceHostPort: results[0].ipAddress + ':' + port});
         } else {
             sendResponse({serviceHostPort : null});
         }
