@@ -9,6 +9,9 @@ window.addEventListener('load', function() {
     var results = [];
 
     var resultsList = document.getElementById('results');
+    var selectResults = document.getElementById('select_results');
+
+    var selectedResult = 0;
 
     var updateResultsList = function() {
         console.log("Updating results list...");
@@ -20,12 +23,26 @@ window.addEventListener('load', function() {
     };
 
     chrome.mdns.onServiceList.addListener( function(info) {
-        if ( info.length > 0) {
+        var placeHolder = document.getElementById('placeholder');
+
+        placeHolder.innerHTML = '';
+        if ( info.length > 0 ) {
             console.log("Received services.");
             console.log(info);
             console.log(info[0].serviceHostPort);
             results = info;
             updateResultsList();
+            placeHolder.appendChild( document.createTextNode('Linkbot hubs found:') );
+            var index;
+            for ( index = 0; index < info.length; ++index) {
+                var hubOption = document.createElement('option');
+                var port = info[0].serviceHostPort.split(':')[1];
+                hubOption.setAttribute('value', info[index].ipAddress + ':' + port);
+                hubOption.appendChild(document.createTextNode(info[index].serviceHostPort));
+                selectResults.appendChild(hubOption);
+            }
+        } else {
+            placeHolder.appendChild( document.createTextNode('No Linkbot hubs found.') );
         }
     },
         serviceFilter
@@ -35,17 +52,15 @@ window.addEventListener('load', function() {
     refreshBtn.addEventListener('click', function() {
         console.log("Refresh.");
         chrome.mdns.forceDiscovery( function() {
-            resultsList.innerHTML = '';
-            results = [];
+            console.log('forceDiscovery started.'); 
         });
     });
 
     chrome.runtime.onMessageExternal.addListener( function(request, sender, sendResponse) {
         console.log("Received message from external source.");
-        if ( results.length > 0 ) {
-            console.log("Sending response: " + results[0].serviceHostPort);
-            var port = results[0].serviceHostPort.split(':')[1];
-            sendResponse({serviceHostPort: results[0].ipAddress + ':' + port});
+        if ( selectResults.selectedIndex > 0 ) {
+            var index = selectResults.selectedIndex;
+            sendResponse({serviceHostPort: selectResults[index].value});
         } else {
             sendResponse({serviceHostPort : null});
         }

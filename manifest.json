@@ -14,6 +14,6 @@
     "system.network"
   ],
   "externally_connectable": {
-    "matches": ["*://hub.linkbotlabs.com/*"]
+    "matches": ["*://hub.linkbotlabs.com/*", "*://localhost/*"]
   }
 }
