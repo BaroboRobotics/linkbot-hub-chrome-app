@@ -1,7 +1,7 @@
 {
   "name": "Linkbot Labs",
   "description": "Linkbot Labs curriculum and content viewer",
-  "version": "0.1",
+  "version": "0.2",
   "manifest_version": 2,
   "app": {
     "background": {
@@ -12,5 +12,8 @@
   "permissions": [
     "mdns",
     "system.network"
-  ]
+  ],
+  "externally_connectable": {
+    "matches": ["*://hub.linkbotlabs.com/*"]
+  }
 }
