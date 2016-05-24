@@ -11,6 +11,7 @@ window.addEventListener('load', function() {
     var radioSelected = function(event) {
         console.log(event);
         selectedHub = hubs[event.target.value];
+        console.log(hubs);
         console.log('Set Hub to: ', selectedHub);
     };
  
@@ -63,6 +64,16 @@ window.addEventListener('load', function() {
         chrome.mdns.forceDiscovery( function() {
             console.log('forceDiscovery started.'); 
         });
+    });
+
+    var addBtn = document.getElementById('btn-add-manual');
+    addBtn.addEventListener('click', function() {
+        var txtInput = document.getElementById('input-manual');
+        console.log('Push onto hubs: ' + txtInput.value);
+        hubs.push(txtInput.value);
+        var radioOption = createRadioOption('hub-radio-option-' + hubs.length, 'Linkbot Hub @' + txtInput.value, hubs.length - 1, true);
+        selectedHub = hubs[0];
+        document.getElementById('hubForm').appendChild(radioOption);
     });
 
     chrome.runtime.onMessageExternal.addListener( function(request, sender, sendResponse) {
