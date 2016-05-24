@@ -1,14 +1,30 @@
 <!doctype html>
 <html>
-    <head>
-        <script src="main.js"></script>
-    </head>
-<body>
-<button id="btn-refresh"> Refresh </button>
-<select id="select_results">
-    <option id="placeholder" value=""> No Linkbot Hubs Found </option>
-</select>
-<ul id="results"> </ul> 
-</body>
-</html>
 
+<head>
+    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.min.css" />
+</head>
+
+<body>
+    <div class="container">
+    	<h1><img src="header.jpg" class="img-responsive" alt="Barobo" /></h1>
+        <div class="panel panel-info">
+            <div class="panel-heading">Select a Linkbot Hub</div>
+            <div class="panel-body">
+                <form id="hubForm" onsubmit="return false;">
+                    <a id="btn-refresh" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> Refresh</a>
+                    <br> 
+                    Add custom Linkbot-Hub: <input id="input-manual"> <a id="btn-add-manual" class="btn btn-default"> Add </a>
+                    <div id="not-found" class="alert alert-warning" role="alert">No Linkbot Hubs Found</div>
+                </form>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.container -->
+</body>
+
+</html>
