@@ -41,7 +41,8 @@ window.addEventListener('load', function() {
             console.log(info);
             document.getElementById('not-found').className = 'alert alert-warning hidden';
             for ( index = 0; index < info.length; ++index) {
-                hubs.push(info[index].serviceHostPort);
+                var port = info[index].serviceHostPort.split(':')[1];
+                hubs.push(info[index].ipAddress + ':' + port);
                 if (selectedHub !== null) {
                     selectRadioOption = false;
                 } else {
